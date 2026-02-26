@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "grid-generator",
-  "main": "src/index.tsx",
+  "main": "./dist/index.js",
   "compatibility_date": "2026-02-26",
   "routes": [
     {
@@ -9,9 +9,13 @@
       "custom_domain": true,
     },
   ],
-  // "compatibility_flags": [
-  //   "nodejs_compat"
-  // ],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
   // "vars": {
   //   "MY_VAR": "my-variable"
   // },
@@ -41,4 +45,10 @@
   //   "enabled": true,
   //   "head_sampling_rate": 1
   // }
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true
+    }
+  }
 }

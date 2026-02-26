@@ -8,9 +8,8 @@
     "lib": [
       "ESNext"
     ],
+    "types": ["vite/client"],
     "jsx": "react-jsx",
-    // "jsx": "preserve",
-    // "jsxFragmentFactory": "Fragment",
     "jsxImportSource": "hono/jsx"
   },
 }
