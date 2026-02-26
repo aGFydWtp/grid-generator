@@ -19,10 +19,33 @@ CSS Gridレイアウトを視覚的に作成し、CSSコードを生成するWeb
 
 ## 技術スタック
 
-- Cloudflare Workers - エッジサーバーレス環境
-- Hono - 軽量Webフレームワーク
-- JSX - UIコンポーネント記述
-- TypeScript - 型安全な開発
+- [Hono](https://hono.dev/) - 軽量Webフレームワーク（SSR + クライアントサイドレンダリング）
+- [Vite](https://vite.dev/) - ビルドツール・開発サーバー
+- [@hono/vite-build](https://github.com/honojs/vite-plugins) - Cloudflare Workers向けViteビルドプラグイン
+- [@hono/vite-dev-server](https://github.com/honojs/vite-plugins) - Hono用Vite開発サーバー
+- [Cloudflare Workers](https://developers.cloudflare.com/workers/) - エッジサーバーレス実行環境
+- [Cloudflare Workers Assets](https://developers.cloudflare.com/workers/static-assets/) - 静的ファイル配信
+- TypeScript / JSX - 型安全なUI開発
+
+## プロジェクト構成
+
+```
+src/
+  index.tsx       - Honoアプリケーションエントリポイント（SSR）
+  renderer.tsx    - JSXレンダラー（HTMLシェル）
+  client.tsx      - CSS Grid GeneratorのUIコンポーネント（クライアントサイド）
+vite.config.ts    - Viteビルド設定（クライアント/SSRデュアルビルド）
+wrangler.jsonc    - Cloudflare Workers設定
+```
+
+## ビルドの仕組み
+
+Viteによるデュアルビルド構成：
+
+1. **クライアントビルド** (`vite build --mode client`) - `src/client.tsx` を `dist/static/client.js` にバンドル
+2. **SSRビルド** (`vite build`) - `src/index.tsx` を `dist/index.js` にバンドル（Cloudflare Workers向け）
+
+開発時は `@hono/vite-dev-server` によりHMR対応の開発サーバーが起動します。
 
 ## 開発環境のセットアップ
 
@@ -36,7 +59,13 @@ pnpm install
 pnpm dev
 ```
 
-開発サーバーは http://localhost:8787 で起動します。
+開発サーバーは http://localhost:5173 で起動します。
+
+## ビルド
+
+```
+pnpm build
+```
 
 ## デプロイ
 
@@ -59,7 +88,3 @@ pnpm deploy
 - グリッドエリアは連続した矩形である必要があります
 - エリア名はCSSの識別子規則に従う必要があります（英数字、アンダースコア、ハイフンのみ）
 - 最大エリア数はグリッドのセル数（行×列）と同じ
-
-## ライセンス
-
-プロジェクトのライセンス情報を記載
