@@ -6,7 +6,6 @@ export const renderer = jsxRenderer(({ children }) => {
       <head>
         {import.meta.env.PROD ? (
           <>
-            <link href="/static/style.css" rel="stylesheet" />
             <script type="module" src="/static/client.js" />
           </>
         ) : (

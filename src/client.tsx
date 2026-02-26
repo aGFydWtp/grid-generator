@@ -1,9 +1,5 @@
 import { useState, useCallback, useMemo, useRef } from "hono/jsx";
 import { render } from "hono/jsx/dom";
-import { hc } from "hono/client";
-import type { AppType } from ".";
-
-const client = hc<AppType>("/");
 
 function hslToHex(h, s, l) {
   s /= 100; l /= 100;
